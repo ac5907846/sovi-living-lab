@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoVi Living Lab — A building that teaches</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF0EA;
+    --paper-2:#E2E7DD;
+    --ink:#13241A;
+    --ink-soft:#3c4d44;
+    --canopy:#009366;        /* FGCU Emerald Green */
+    --canopy-deep:#063d2c;   /* deep emerald for the dark band */
+    --water:#004685;         /* FGCU Cobalt Blue */
+    --solar:#CC7A22;         /* free warm accent, keeps personality */
+    --line:#C9D1C2;
+    --card:#FFFFFF;          /* FGCU Bright White cards */
+    --silver:#7d8a93;
+    --display:'Bricolage Grotesque', sans-serif;
+    --body:'Source Serif 4', Georgia, serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--solar);color:#fff}
+  a{color:inherit}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+
+  .mono{font-family:var(--mono);font-weight:500;letter-spacing:.02em}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--canopy);
+    font-weight:600;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:40;
+    background:rgba(236,239,230,.86);
+    backdrop-filter:blur(10px);
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em}
+  .brand .seed{
+    width:26px;height:26px;border-radius:50% 50% 50% 2px;
+    background:linear-gradient(150deg,var(--canopy),var(--water));
+    flex:none;transform:rotate(-8deg);
+  }
+  .demo-tag{
+    font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;padding:4px 11px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:74px 0 56px;overflow:hidden}
+  .contour{
+    position:absolute;inset:0;z-index:0;opacity:.5;
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative;z-index:1}
+  .hero-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:54px;align-items:center}
+  h1{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(38px,5.4vw,64px);
+    line-height:1.02;
+    letter-spacing:-.025em;
+    margin:18px 0 22px;
+  }
+  h1 .sci{color:var(--canopy);font-style:normal;position:relative;white-space:nowrap}
+  h1 .sci::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.13em;background:var(--solar);opacity:.55;border-radius:2px}
+  .lede{font-size:20px;color:var(--ink-soft);max-width:33ch}
+  .meta-row{display:flex;gap:26px;margin-top:30px;flex-wrap:wrap}
+  .meta-row .m{display:flex;flex-direction:column;gap:2px}
+  .meta-row .m b{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:-.01em}
+  .meta-row .m span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+
+  /* hero scorecard chip */
+  .leed-chip{
+    background:var(--ink);color:var(--paper);
+    border-radius:16px;padding:26px 26px 22px;
+    box-shadow:0 18px 40px -22px rgba(21,36,27,.7);
+  }
+  .leed-chip .top{display:flex;justify-content:space-between;align-items:baseline}
+  .leed-chip .lvl{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.02em;color:#cfe0c8}
+  .leed-chip .tot{font-family:var(--mono);font-size:13px;color:#9fb6a3}
+  .leed-chip .tot b{color:var(--solar);font-size:30px;font-weight:600}
+  .bandbar{margin:18px 0 8px;height:9px;border-radius:999px;background:#2b3c31;position:relative;overflow:hidden}
+  .bandbar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,var(--water),var(--canopy));width:0;transition:width 1.3s cubic-bezier(.2,.7,.2,1)}
+  .bandticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:#7f968a;letter-spacing:.05em}
+  .bandticks .now{color:var(--solar)}
+  .leed-chip .note{margin-top:14px;font-size:12.5px;line-height:1.45;color:#9fb6a3;font-family:var(--mono)}
+
+  /* ---------- section frame ---------- */
+  section{padding:64px 0}
+  .sec-head{max-width:60ch;margin-bottom:40px}
+  .sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(27px,3.4vw,38px);letter-spacing:-.02em;line-height:1.08;margin:12px 0 14px}
+  .sec-head p{color:var(--ink-soft);font-size:19px}
+
+  /* ---------- how it works ---------- */
+  .how{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .step{background:var(--paper-2);padding:28px 24px}
+  .step .ph{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--water);font-weight:600}
+  .step h3{font-family:var(--display);font-weight:700;font-size:20px;margin:10px 0 8px;letter-spacing:-.01em}
+  .step p{font-size:15.5px;color:var(--ink-soft);line-height:1.55}
+  .step.locked{position:relative}
+  .step.locked::after{content:"protected · stays internal";position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--silver);border:1px solid var(--line);border-radius:999px;padding:3px 8px}
+
+  /* ---------- scorecard ---------- */
+  .score-meta{display:flex;align-items:center;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+  .pill{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink-soft);background:var(--card)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .credit{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 20px 18px;cursor:pointer;text-align:left;font:inherit;color:inherit;
+    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    display:flex;flex-direction:column;gap:13px;position:relative;
+  }
+  .credit:hover{transform:translateY(-3px);box-shadow:0 16px 30px -20px rgba(21,36,27,.45);border-color:var(--canopy)}
+  .credit:focus-visible{outline:3px solid var(--water);outline-offset:2px}
+  .credit .ct{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .credit .code{font-family:var(--mono);font-weight:600;font-size:12px;letter-spacing:.06em;color:var(--canopy);background:rgba(0,147,102,.1);padding:4px 9px;border-radius:6px}
+  .credit .pts{font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+  .credit .pts b{color:var(--ink);font-weight:600}
+  .credit h4{font-family:var(--display);font-weight:700;font-size:18.5px;letter-spacing:-.01em;line-height:1.12}
+  .credit .ptbar{height:6px;border-radius:999px;background:var(--paper-2);overflow:hidden}
+  .credit .ptbar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--water),var(--canopy))}
+  .credit .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .credit .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 8px}
+  .credit .more{font-family:var(--mono);font-size:11px;color:var(--water);letter-spacing:.03em;margin-top:auto}
+
+  .total-strip{
+    margin-top:18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    background:var(--ink);color:var(--paper);border-radius:14px;padding:18px 24px;
+  }
+  .total-strip .num{font-family:var(--display);font-weight:800;font-size:34px;color:var(--solar);letter-spacing:-.02em;line-height:1}
+  .total-strip .lab{font-family:var(--mono);font-size:12px;color:#9fb6a3;line-height:1.4}
+  .total-strip .track{flex:1;min-width:200px;height:10px;border-radius:999px;background:#2b3c31;position:relative}
+  .total-strip .track i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,var(--water),var(--canopy));width:54%}
+  .total-strip .track .mark{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--solar)}
+  .total-strip .track .mark span{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;color:var(--solar);white-space:nowrap}
+
+  /* ---------- drawer ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(21,36,27,.42);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:60}
+  .scrim.open{opacity:1;pointer-events:auto}
+  .drawer{
+    position:fixed;top:0;right:0;bottom:0;width:min(460px,92vw);z-index:70;
+    background:var(--paper);border-left:1px solid var(--line);
+    transform:translateX(100%);transition:transform .34s cubic-bezier(.3,.7,.2,1);
+    display:flex;flex-direction:column;box-shadow:-30px 0 60px -30px rgba(21,36,27,.5);
+  }
+  .drawer.open{transform:translateX(0)}
+  .drawer .dhead{padding:24px 28px 20px;border-bottom:1px solid var(--line)}
+  .drawer .dcode{font-family:var(--mono);font-weight:600;font-size:12px;color:var(--canopy);letter-spacing:.06em}
+  .drawer h3{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.02em;margin:8px 0 0;line-height:1.05}
+  .drawer .dpts{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);margin-top:10px}
+  .drawer .dbody{padding:24px 28px;overflow-y:auto}
+  .drawer .dlabel{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--water);font-weight:600;margin:20px 0 8px}
+  .drawer .dlabel:first-child{margin-top:0}
+  .drawer p.dtext{font-size:16.5px;color:var(--ink);line-height:1.58}
+  .drawer .dtags{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+  .drawer .dtag{font-family:var(--mono);font-size:11px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+  .dclose{position:absolute;top:18px;right:20px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:18px;color:var(--ink);line-height:1;display:flex;align-items:center;justify-content:center}
+  .dclose:hover{background:var(--paper-2)}
+  .dclose:focus-visible{outline:3px solid var(--water);outline-offset:2px}
+
+  /* ---------- disciplines ---------- */
+  .disc{background:var(--canopy-deep);color:var(--paper);border-radius:0}
+  .disc h2{color:#fff}
+  .disc .sec-head p{color:#bcd1bf}
+  .disc .eyebrow{color:#8fd0a3}
+  .disc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .prog{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px 22px}
+  .prog .pn{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+  .prog .pn .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .prog .pcodes{display:flex;flex-wrap:wrap;gap:6px;margin:13px 0 11px}
+  .prog .maj{font-family:var(--mono);font-size:11px;letter-spacing:.01em;color:#9fc4a8;margin-top:9px;line-height:1.5}
+  .disc-foot{font-family:var(--mono);font-size:12px;color:#9fc4a8;margin-top:22px;max-width:62ch;line-height:1.6}
+  .prog .pcode{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:#cfe0c8;border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:3px 8px}
+  .prog p{font-size:15px;color:#bcd1bf;line-height:1.55}
+
+  /* ---------- handover ---------- */
+  .hand .cols{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .hand .col{background:var(--card);padding:26px 26px}
+  .hand .col.pub{background:var(--card)}
+  .hand .col.prot{background:var(--paper-2)}
+  .hand .ch{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .hand .pub .ch{color:var(--canopy)}
+  .hand .prot .ch{color:var(--silver)}
+  .hand ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+  .hand li{font-size:15.5px;line-height:1.5;padding-left:22px;position:relative;color:var(--ink-soft)}
+  .hand .pub li::before{content:"+";position:absolute;left:0;color:var(--canopy);font-family:var(--mono);font-weight:600}
+  .hand .prot li::before{content:"×";position:absolute;left:0;color:var(--silver);font-family:var(--mono);font-weight:600}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:#9fb6a3;padding:46px 0 40px;font-family:var(--mono);font-size:12.5px;line-height:1.7}
+  footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  footer b{color:#cfe0c8;font-weight:600}
+  footer .disc-note{max-width:48ch}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:34px}
+    .steps{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr 1fr}
+    .disc-grid{grid-template-columns:1fr}
+    .hand .cols{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    body{font-size:17px}
+    .grid{grid-template-columns:1fr}
+    .meta-row{gap:18px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="seed"></span> SoVi Living Lab</div>
+    <span class="demo-tag">Demonstration prototype</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <svg class="contour" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="#C9D1C2" stroke-width="1.1">
+      <path d="M-50,120 C200,60 380,180 600,140 S1000,60 1260,150"/>
+      <path d="M-50,180 C220,120 400,240 620,200 S1010,120 1260,210"/>
+      <path d="M-50,250 C240,190 420,300 640,260 S1020,190 1260,270"/>
+      <path d="M-50,320 C260,260 440,360 660,320 S1030,260 1260,330"/>
+      <path d="M-50,390 C280,330 460,420 680,380 S1040,330 1260,390"/>
+      <path d="M-50,460 C300,400 480,480 700,440 S1050,400 1260,450"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">SoVi Building 6 · A teaching instrument</span>
+        <h1>A residence hall that teaches the <span class="sci">science it is built from</span>.</h1>
+        <p class="lede">Every sustainability decision in a 535-bed hall becomes a primary source. The LEED scorecard is the syllabus, and each credit category opens onto a different program.</p>
+        <div class="meta-row">
+          <div class="m"><b>535</b><span>beds, 6 stories</span></div>
+          <div class="m"><b>7</b><span>colleges & schools</span></div>
+          <div class="m"><b>9</b><span>LEED categories</span></div>
+        </div>
+      </div>
+      <div class="leed-chip" id="leedChip">
+        <div class="top">
+          <span class="lvl">LEED Silver</span>
+          <span class="tot"><b>54</b>/110</span>
+        </div>
+        <div class="bandbar"><i id="bandFill"></i></div>
+        <div class="bandticks">
+          <span>Certified 40</span>
+          <span class="now">Silver 50</span>
+          <span>Gold 60</span>
+          <span>Plat 80</span>
+        </div>
+        <p class="note">Illustrative target, shown to demonstrate the format. Real credit totals are set during design with FGCU.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The idea</span>
+      <h2>One platform, two lives.</h2>
+      <p>While the building goes up, the platform is a working project record. When it is finished, the educational layer is handed to FGCU faculty as an open teaching archive. The sensitive half never leaves the build.</p>
+    </div>
+    <div class="steps">
+      <div class="step locked">
+        <span class="ph">Phase 01 · Build</span>
+        <h3>Capture as it happens</h3>
+        <p>Design choices, material submittals, and progress are logged during construction. Detailed drawings, structural layouts, and security data stay internal and exempt from public release.</p>
+      </div>
+      <div class="step">
+        <span class="ph">Phase 02 · Curate</span>
+        <h3>Translate to teaching</h3>
+        <p>Concept-level explanations, approved photos, and the reasoning behind each system are pulled into a public layer. FGCU reviews what qualifies as educational before anything is published.</p>
+      </div>
+      <div class="step">
+        <span class="ph">Phase 03 · Hand over</span>
+        <h3>Owned by the academy</h3>
+        <p>On completion, the educational archive transfers to FGCU. Faculty across programs use it, extend it, and add the next campus project beside this one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCORECARD -->
+<section id="scorecard">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The syllabus</span>
+      <h2>The LEED scorecard, read as a curriculum.</h2>
+      <p>LEED awards points across nine categories. Each one is also a question students can investigate with real evidence from this building. Open a category to see a sample lesson and the programs it feeds.</p>
+    </div>
+    <div class="score-meta">
+      <span class="pill">LEED v4 BD+C · New Construction</span>
+      <span class="pill">Tap a card to open a lesson</span>
+    </div>
+    <div class="grid" id="grid"></div>
+
+    <div class="total-strip">
+      <div><div class="num">54</div></div>
+      <div class="lab">illustrative target<br>points earned</div>
+      <div class="track"><i></i><div class="mark" style="left:45.4%"><span>Silver 50</span></div><div class="mark" style="left:54.5%"><span>Gold 60</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCIPLINES -->
+<section class="disc">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Open to every college</span>
+      <h2>Every college on campus has a way in.</h2>
+      <p>These follow FGCU's actual colleges and schools, not a short list of favorites. A building this complex holds a question for engineering and business, but also for education, health, and the arts. The tags are starting points, any program can claim its own.</p>
+    </div>
+    <div class="disc-grid" id="discGrid"></div>
+    <p class="disc-foot">Seven colleges shown. The platform is built to add more angles as faculty bring them, and to add the next campus project beside this one.</p>
+  </div>
+</section>
+
+<!-- HANDOVER -->
+<section class="hand">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">What gets shared</span>
+      <h2>The line between teaching and protected.</h2>
+      <p>The educational layer is built to be public from the start. Anything that Florida law treats as confidential about a public building stays out of it.</p>
+    </div>
+    <div class="cols">
+      <div class="col pub">
+        <div class="ch">Public educational layer</div>
+        <ul>
+          <li>Concept-level explanations of each building system</li>
+          <li>Approved progress photography and time-lapse</li>
+          <li>The sustainability reasoning behind LEED credits</li>
+          <li>Material choices and life-cycle cost narratives</li>
+          <li>Lesson modules mapped to each program</li>
+        </ul>
+      </div>
+      <div class="col prot">
+        <div class="ch">Protected, never published</div>
+        <ul>
+          <li>Detailed construction and structural drawings</li>
+          <li>Internal layouts and security schematics</li>
+          <li>Cost and schedule management data</li>
+          <li>Anything FGCU designates as exempt</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="disc-note">
+      <b>SoVi Living Lab — demonstration prototype.</b><br>
+      An example of the kind of teaching platform that could be built around SoVi Building 6 and handed to FGCU. Not an official FGCU site. LEED point figures shown are illustrative and do not represent final project values.
+    </div>
+    <div>
+      concept · cross-disciplinary teaching archive<br>
+      anchor · LEED Silver journey<br>
+      built for · every FGCU college and school,<br>engineering and business to education and the arts
+    </div>
+  </div>
+</footer>
+
+<!-- DRAWER -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+  <button class="dclose" id="dclose" aria-label="Close lesson">×</button>
+  <div class="dhead">
+    <div class="dcode mono" id="dCode"></div>
+    <h3 id="drawerTitle"></h3>
+    <div class="dpts" id="dPts"></div>
+  </div>
+  <div class="dbody">
+    <div class="dlabel">The question</div>
+    <p class="dtext" id="dHook"></p>
+    <div class="dlabel">A sample lesson</div>
+    <p class="dtext" id="dLesson"></p>
+    <div class="dlabel">Programs that plug in</div>
+    <div class="dtags" id="dTags"></div>
+  </div>
+</aside>
+
+<script>
+const credits = [
+  { code:"IP", name:"Integrative Process", earned:1, max:1,
+    tags:["Construction Management","Design","Entrepreneurship"],
+    hook:"Why do green buildings work best when every trade is in the room from day one?",
+    lesson:"Students trace how an early decision, say, orienting the hall to cut cooling load, ripples through structural, mechanical, and budget choices. It is a live case study in integrated project delivery, the same mindset the design-build method runs on." },
+  { code:"LT", name:"Location & Transportation", earned:7, max:16,
+    tags:["Civil Engineering","Environmental Studies"],
+    hook:"What does it cost the planet to get 535 students to and from this building?",
+    lesson:"Students map walkability, transit access, and bike infrastructure around the hall, then model how site location changes a building's lifetime carbon before a single wall goes up." },
+  { code:"SS", name:"Sustainable Sites", earned:6, max:10,
+    tags:["Environmental Studies","Civil Engineering"],
+    hook:"How does a building sit on land that is half preserved Florida wetland?",
+    lesson:"Using FGCU's own restored-nature campus as context, students study heat-island reduction, open space, and how construction disturbance is kept off sensitive ground." },
+  { code:"WE", name:"Water Efficiency", earned:8, max:11,
+    tags:["Environmental Studies","Environmental Engineering","Marine Science"],
+    hook:"How low can a 535-bed hall push its water use, and where does the rain end up?",
+    lesson:"Students compare fixture flow rates against baseline models, then follow stormwater from roof to retention and onto the campus watershed The Water School already studies. The building becomes a metered field site." },
+  { code:"EA", name:"Energy & Atmosphere", earned:11, max:33,
+    tags:["Environmental Engineering","Business & Entrepreneurship","Construction Management"],
+    hook:"Which energy upgrades pay for themselves, and which are worth doing anyway?",
+    lesson:"The biggest category becomes a two-sided problem: engineering students model envelope and HVAC performance, while business students run the life-cycle cost and payback on each measure, including the 72-hour resilience target." },
+  { code:"MR", name:"Materials & Resources", earned:5, max:13,
+    tags:["Construction Management","Civil Engineering"],
+    hook:"What is this building actually made of, and where did it come from?",
+    lesson:"Students read real material submittals, trace embodied carbon and sourcing, and weigh construction-waste diversion against cost. Materials science meets the realities of a job-site." },
+  { code:"EQ", name:"Indoor Environmental Quality", earned:8, max:16,
+    tags:["Health Sciences","Environmental Engineering","Architecture"],
+    hook:"What makes the air, light, and acoustics inside a dorm good to live and study in?",
+    lesson:"Students investigate ventilation rates, daylighting, low-emission materials, and acoustic design, connecting building decisions to student health and academic performance." },
+  { code:"IN", name:"Innovation", earned:4, max:6,
+    tags:["Business & Entrepreneurship","Design"],
+    hook:"What could this building do that no checklist asked for?",
+    lesson:"An open brief: students propose a credit-worthy innovation, from a novel sensor program to a behavior-change campaign for residents, and pitch it as a venture with costs and impact." },
+  { code:"RP", name:"Regional Priority", earned:4, max:4,
+    tags:["Environmental Studies"],
+    hook:"What matters most for a green building specifically in Southwest Florida?",
+    lesson:"Students examine why LEED weights certain credits by region, studying hurricane resilience, heat, and water issues that are particular to this coast rather than generic to the country." }
+];
+
+const colleges = [
+  { name:"U.A. Whitaker College of Engineering", color:"#009366", codes:["SS","EA","WE","MR"],
+    majors:"Civil · Environmental · Construction Mgmt · Bioengineering · Software · Computer Science",
+    text:"The hall is a structural, energy, and water problem to model against real field conditions, not a textbook." },
+  { name:"The Water School", color:"#1F8FB0", codes:["WE","SS","RP"],
+    majors:"Environmental Studies · Marine Science · Environmental Geology",
+    text:"The building and its stormwater become a metered field site, feeding the watershed the school already studies." },
+  { name:"Lutgert College of Business", color:"#004685", codes:["EA","MR","IN"],
+    majors:"Finance · Management · Supply Chain · Analytics · Economics",
+    text:"Life-cycle cost, procurement, payback, and the financial case for building green as a real spreadsheet." },
+  { name:"Daveler & Kauanui School of Entrepreneurship", color:"#B58BD1", codes:["IN"],
+    majors:"Entrepreneurship · Digital Media Design",
+    text:"Pitch a credit-worthy innovation as a venture, and tell the building's story to the public." },
+  { name:"Marieb College of Health & Human Services", color:"#E0857A", codes:["EQ"],
+    majors:"Public Health · Health Science · Social Work · Exercise Science",
+    text:"How indoor air, daylight, acoustics, and density shape the wellbeing of 535 residents." },
+  { name:"College of Arts & Sciences", color:"#CC7A22", codes:["EQ","IN","RP"],
+    majors:"Communication · Journalism · Biology · Chemistry · Physics · Psychology · Art",
+    text:"Document the build, study the chemistry and physics underneath it, and read how residents actually behave." },
+  { name:"College of Education", color:"#5FA86B", codes:["IP"],
+    majors:"Elementary · Secondary · Special Education",
+    text:"Turn the finished building into K-12 outreach lessons and study how people learn from a real place." }
+];
+
+// build grid
+const grid = document.getElementById("grid");
+credits.forEach((c,i)=>{
+  const pct = Math.round((c.earned/c.max)*100);
+  const el = document.createElement("button");
+  el.className="credit";
+  el.setAttribute("aria-haspopup","dialog");
+  el.innerHTML = `
+    <div class="ct">
+      <span class="code">${c.code}</span>
+      <span class="pts"><b>${c.earned}</b> / ${c.max} pts</span>
+    </div>
+    <h4>${c.name}</h4>
+    <div class="ptbar"><i style="width:${pct}%"></i></div>
+    <div class="tags">${c.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+    <span class="more">open lesson →</span>`;
+  el.addEventListener("click",()=>openDrawer(i));
+  grid.appendChild(el);
+});
+
+// build colleges
+const discGrid = document.getElementById("discGrid");
+colleges.forEach(p=>{
+  const el = document.createElement("div");
+  el.className="prog";
+  el.innerHTML = `
+    <div class="pn"><span class="dot" style="background:${p.color}"></span>${p.name}</div>
+    <div class="maj">${p.majors}</div>
+    <div class="pcodes">${p.codes.map(c=>`<span class="pcode">${c}</span>`).join("")}</div>
+    <p>${p.text}</p>`;
+  discGrid.appendChild(el);
+});
+
+// drawer
+const scrim=document.getElementById("scrim");
+const drawer=document.getElementById("drawer");
+let lastFocus=null;
+function openDrawer(i){
+  const c=credits[i];
+  lastFocus=document.activeElement;
+  document.getElementById("dCode").textContent = c.code + " · LEED category";
+  document.getElementById("drawerTitle").textContent = c.name;
+  document.getElementById("dPts").textContent = `${c.earned} of ${c.max} points · illustrative target`;
+  document.getElementById("dHook").textContent = c.hook;
+  document.getElementById("dLesson").textContent = c.lesson;
+  document.getElementById("dTags").innerHTML = c.tags.map(t=>`<span class="dtag">${t}</span>`).join("");
+  scrim.classList.add("open");
+  drawer.classList.add("open");
+  drawer.setAttribute("aria-hidden","false");
+  document.getElementById("dclose").focus();
+}
+function closeDrawer(){
+  scrim.classList.remove("open");
+  drawer.classList.remove("open");
+  drawer.setAttribute("aria-hidden","true");
+  if(lastFocus) lastFocus.focus();
+}
+document.getElementById("dclose").addEventListener("click",closeDrawer);
+scrim.addEventListener("click",closeDrawer);
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeDrawer(); });
+
+// animate hero band fill to Silver (54/110 ≈ 49%)
+window.addEventListener("load",()=>{
+  setTimeout(()=>{ document.getElementById("bandFill").style.width="49%"; },250);
+});
+</script>
+</body>
+</html>
