@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SoVi Living Lab — A building that teaches</title>
+<title>SoVi Living Lab: A building that teaches</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -42,8 +42,8 @@
   .mono{font-family:var(--mono);font-weight:500;letter-spacing:.02em}
   .eyebrow{
     font-family:var(--mono);
-    font-size:12px;
-    letter-spacing:.18em;
+    font-size:13.5px;
+    letter-spacing:.16em;
     text-transform:uppercase;
     color:var(--canopy);
     font-weight:600;
@@ -83,6 +83,7 @@
     line-height:1.02;
     letter-spacing:-.025em;
     margin:18px 0 22px;
+    color:var(--water);
   }
   h1 .sci{color:var(--canopy);font-style:normal;position:relative;white-space:nowrap}
   h1 .sci::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.13em;background:var(--solar);opacity:.55;border-radius:2px}
@@ -111,7 +112,7 @@
   /* ---------- section frame ---------- */
   section{padding:64px 0}
   .sec-head{max-width:60ch;margin-bottom:40px}
-  .sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(27px,3.4vw,38px);letter-spacing:-.02em;line-height:1.08;margin:12px 0 14px}
+  .sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(27px,3.4vw,38px);letter-spacing:-.02em;line-height:1.08;margin:12px 0 14px;color:var(--water)}
   .sec-head p{color:var(--ink-soft);font-size:19px}
 
   /* ---------- how it works ---------- */
@@ -154,7 +155,7 @@
   .total-strip .num{font-family:var(--display);font-weight:800;font-size:34px;color:var(--solar);letter-spacing:-.02em;line-height:1}
   .total-strip .lab{font-family:var(--mono);font-size:12px;color:#9fb6a3;line-height:1.4}
   .total-strip .track{flex:1;min-width:200px;height:10px;border-radius:999px;background:#2b3c31;position:relative}
-  .total-strip .track i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,var(--water),var(--canopy));width:54%}
+  .total-strip .track i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,var(--water),var(--canopy));width:49%;transition:width .6s cubic-bezier(.2,.7,.2,1),background .4s ease}
   .total-strip .track .mark{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--solar)}
   .total-strip .track .mark span{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;color:var(--solar);white-space:nowrap}
 
@@ -188,7 +189,9 @@
   .disc .sec-head p{color:#bcd1bf}
   .disc .eyebrow{color:#8fd0a3}
   .disc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  .prog{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px 22px}
+  .prog{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px 22px;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;display:flex;flex-direction:column;transition:transform .22s ease,background .22s ease,border-color .22s ease}
+  .prog:hover{transform:translateY(-3px);background:rgba(255,255,255,.08);border-color:rgba(143,208,163,.55)}
+  .prog:focus-visible{outline:3px solid #8fd0a3;outline-offset:2px}
   .prog .pn{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
   .prog .pn .dot{width:9px;height:9px;border-radius:50%;flex:none}
   .prog .pcodes{display:flex;flex-wrap:wrap;gap:6px;margin:13px 0 11px}
@@ -196,6 +199,10 @@
   .disc-foot{font-family:var(--mono);font-size:12px;color:#9fc4a8;margin-top:22px;max-width:62ch;line-height:1.6}
   .prog .pcode{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:#cfe0c8;border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:3px 8px}
   .prog p{font-size:15px;color:#bcd1bf;line-height:1.55}
+  .prog .pmore{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:#8fd0a3;margin-top:12px}
+  .drawer .dlist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .drawer .dlist li{position:relative;padding-left:20px;font-size:15.5px;color:var(--ink);line-height:1.5}
+  .drawer .dlist li::before{content:"→";position:absolute;left:0;color:var(--canopy);font-family:var(--mono)}
 
   /* ---------- handover ---------- */
   .hand .cols{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -209,6 +216,73 @@
   .hand li{font-size:15.5px;line-height:1.5;padding-left:22px;position:relative;color:var(--ink-soft)}
   .hand .pub li::before{content:"+";position:absolute;left:0;color:var(--canopy);font-family:var(--mono);font-weight:600}
   .hand .prot li::before{content:"×";position:absolute;left:0;color:var(--silver);font-family:var(--mono);font-weight:600}
+
+  /* ---------- timeline ---------- */
+  .timeline .sec-head{margin-bottom:34px}
+  .tl{--c1:108px;--c2:34px;position:relative;margin-top:6px}
+  .tl::before{content:"";position:absolute;left:calc(var(--c1) + var(--c2)/2 - 1px);top:16px;bottom:42px;width:2px;background:linear-gradient(180deg,var(--water),var(--canopy));border-radius:2px}
+  .tl-phase{display:grid;grid-template-columns:var(--c1) var(--c2) 1fr;align-items:center;margin:4px 0 14px}
+  .tl-phase span{grid-column:3;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--water);font-weight:600}
+  .tl-phase::before{content:"";grid-column:2;justify-self:center;width:13px;height:13px;border-radius:50%;background:var(--paper);border:2px solid var(--water);position:relative;z-index:1}
+  .tl-item{display:grid;grid-template-columns:var(--c1) var(--c2) 1fr;align-items:start}
+  .tl-date{grid-column:1;text-align:right;padding-right:14px;padding-top:3px;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap}
+  .tl-node{grid-column:2;position:relative;align-self:stretch}
+  .tl-node::before{content:"";position:absolute;left:50%;top:7px;transform:translateX(-50%);width:11px;height:11px;border-radius:50%;background:var(--canopy);box-shadow:0 0 0 4px var(--paper);z-index:1}
+  .tl-card{grid-column:3;padding:0 0 22px 16px}
+  .tl-card h4{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01em;line-height:1.15;margin-bottom:5px}
+  .tl-card p{font-size:15px;color:var(--ink-soft);line-height:1.5}
+  .tl-card .gmp{display:inline-block;margin-top:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--solar);border:1px solid var(--line);border-radius:999px;padding:3px 9px}
+  .timeline{padding-bottom:30px}
+
+  /* ---------- path to gold ---------- */
+  .gold-control{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
+  .goldbtn{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--solar);background:var(--card);border:1px solid var(--solar);border-radius:999px;padding:7px 15px;cursor:pointer;transition:background .2s ease,color .2s ease}
+  .goldbtn:hover{background:var(--solar);color:#fff}
+  .goldbtn:focus-visible{outline:3px solid var(--water);outline-offset:2px}
+  .goldbtn[aria-pressed="true"]{background:var(--solar);color:#fff}
+  .gold-hint{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);line-height:1.4}
+  .credit.gold{border-color:var(--solar);box-shadow:0 0 0 1px var(--solar),0 16px 30px -20px rgba(204,122,34,.4)}
+  .goldbadge{position:absolute;top:-9px;right:14px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--solar);border-radius:999px;padding:3px 9px;box-shadow:0 4px 10px -4px rgba(204,122,34,.7)}
+  #goldPanel{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .3s ease,margin-top .3s ease;margin-top:0}
+  #goldPanel.open{max-height:260px;opacity:1;margin-top:16px}
+  .gold-inner{background:var(--card);border:1px solid var(--solar);border-radius:14px;padding:20px 22px}
+  .gold-inner h4{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.01em;margin-bottom:8px;color:var(--ink)}
+  .gold-inner p{font-size:15px;color:var(--ink-soft);line-height:1.55}
+  .gold-inner .deltas{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+  .gold-inner .delta{font-family:var(--mono);font-size:11.5px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+  .gold-inner .delta b{color:var(--solar);font-weight:600}
+
+  /* ---------- dashboard ---------- */
+  .dash-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:24px}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .tile b{display:block;font-family:var(--display);font-weight:800;font-size:29px;letter-spacing:-.02em;color:var(--water);line-height:1.05}
+  .tile span{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-top:6px}
+  .tile.silver b{color:var(--canopy)}
+  .dash-main{display:grid;grid-template-columns:350px 1fr;gap:18px;align-items:stretch}
+  .dash-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 22px}
+  .dash-card h3{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.01em;margin-bottom:3px;color:var(--ink)}
+  .dash-card .sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px}
+  .donut-wrap{display:flex;justify-content:center;margin-bottom:16px}
+  .donut-wrap svg{width:186px;height:186px}
+  .donut-center .dc-num{font-family:var(--display);font-weight:800;font-size:32px;fill:var(--ink)}
+  .donut-center .dc-sub{font-family:var(--mono);font-size:9px;letter-spacing:.06em;fill:var(--ink-soft);text-transform:uppercase}
+  .donut-legend{display:grid;grid-template-columns:1fr 1fr;gap:7px 16px}
+  .leg{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;color:var(--ink-soft);min-width:0}
+  .leg .sw{width:9px;height:9px;border-radius:2px;flex:none}
+  .leg .lc{color:var(--ink);font-weight:600;width:20px;flex:none}
+  .leg .ln{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .leg .lp{color:var(--water);font-weight:600;flex:none}
+  .matrix-wrap{overflow-x:auto}
+  .matrix{width:100%;border-collapse:collapse;font-family:var(--mono)}
+  .matrix th,.matrix td{text-align:center;padding:7px 4px;font-size:11px}
+  .matrix thead th{color:var(--water);font-weight:600;border-bottom:1px solid var(--line)}
+  .matrix tbody th{text-align:left;font-family:var(--body);font-size:13.5px;color:var(--ink);font-weight:600;white-space:nowrap;padding-right:12px}
+  .matrix .on{display:inline-block;width:15px;height:15px;border-radius:4px;background:var(--canopy)}
+  .matrix .off{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--line)}
+  .matrix .rt{color:var(--water);font-weight:600}
+  .matrix tfoot th,.matrix tfoot td{border-top:1px solid var(--line);color:var(--ink-soft);font-size:10.5px;padding-top:9px}
+  .matrix tfoot th{text-align:left;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+  @media (max-width:860px){ .dash-main{grid-template-columns:1fr} }
 
   /* ---------- footer ---------- */
   footer{background:var(--ink);color:#9fb6a3;padding:46px 0 40px;font-family:var(--mono);font-size:12.5px;line-height:1.7}
@@ -258,7 +332,7 @@
     <div class="hero-grid">
       <div>
         <span class="eyebrow">SoVi Building 6 · A teaching instrument</span>
-        <h1>A residence hall that teaches the <span class="sci">science it is built from</span>.</h1>
+        <h1>A residence hall that teaches the <span class="sci">science it is built from.</span></h1>
         <p class="lede">Every sustainability decision in a 535-bed hall becomes a primary source. The LEED scorecard is the syllabus, and each credit category opens onto a different program.</p>
         <div class="meta-row">
           <div class="m"><b>535</b><span>beds, 6 stories</span></div>
@@ -283,6 +357,41 @@
     </div>
   </div>
 </header>
+
+<!-- DASHBOARD -->
+<section class="dash" id="overview">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">At a glance</span>
+      <h2>The living lab, on one screen.</h2>
+      <p>An overview of the building behind the curriculum: its scale, its illustrative LEED standing, and which college plugs into which credit.</p>
+    </div>
+
+    <div class="dash-tiles">
+      <div class="tile"><b>535</b><span>beds</span></div>
+      <div class="tile"><b>189</b><span>units</span></div>
+      <div class="tile"><b>6</b><span>stories</span></div>
+      <div class="tile"><b>170,109</b><span>square feet</span></div>
+      <div class="tile"><b>7</b><span>colleges &amp; schools</span></div>
+      <div class="tile"><b>9</b><span>LEED categories</span></div>
+      <div class="tile silver"><b>54/110</b><span>LEED Silver target</span></div>
+    </div>
+
+    <div class="dash-main">
+      <div class="dash-card">
+        <h3>LEED scorecard</h3>
+        <div class="sub">illustrative points · v4 BD+C</div>
+        <div class="donut-wrap"><svg id="leedDonut" viewBox="0 0 180 180" role="img" aria-label="LEED points earned by category, illustrative target of 54 out of 110"></svg></div>
+        <div class="donut-legend" id="donutLegend"></div>
+      </div>
+      <div class="dash-card">
+        <h3>Where each college plugs in</h3>
+        <div class="sub">college × LEED category</div>
+        <div class="matrix-wrap"><table class="matrix" id="leedMatrix"></table></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- HOW IT WORKS -->
 <section class="how">
@@ -312,6 +421,98 @@
   </div>
 </section>
 
+<!-- TIMELINE -->
+<section class="timeline" id="timeline">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The build calendar</span>
+      <h2>What the project record follows.</h2>
+      <p>A working draft of the path from contract to handover, drawn from the project scale and the one fixed date on the solicitation. Each milestone is a moment the platform captures another chapter of the build.</p>
+    </div>
+
+    <div class="tl">
+      <div class="tl-phase"><span>Design</span></div>
+
+      <div class="tl-item">
+        <span class="tl-date">Sep 2026</span>
+        <span class="tl-node"></span>
+        <div class="tl-card">
+          <h4>Contract execution & design Notice to Proceed</h4>
+          <p>The team is on the clock and the project record opens. Protected drawings begin flowing into the internal layer right away.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-date">Late 2026</span>
+        <span class="tl-node"></span>
+        <div class="tl-card">
+          <h4>Schematic Design</h4>
+          <p>Massing for the six-story, 535-bed hall is set, sited next to Eagle and Osprey Halls.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-date">Early 2027</span>
+        <span class="tl-node"></span>
+        <div class="tl-card">
+          <h4>Design Development</h4>
+          <p>Building systems, the envelope, and the LEED Silver pathways are resolved into a buildable scheme.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-date">Spring 2027</span>
+        <span class="tl-node"></span>
+        <div class="tl-card">
+          <h4>60% Construction Documents</h4>
+          <p>The guaranteed maximum price and a guaranteed completion date are locked in by amendment. This is the point where cost certainty arrives.</p>
+          <span class="gmp">GMP locked</span>
+        </div>
+      </div>
+
+      <div class="tl-phase"><span>Construction</span></div>
+
+      <div class="tl-item">
+        <span class="tl-date">Summer 2027</span>
+        <span class="tl-node"></span>
+        <div class="tl-card">
+          <h4>Permitting & construction Notice to Proceed</h4>
+          <p>With the building permit secured, sitework, drainage, and foundations begin on the SoVi site.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-date">2027 to 2028</span>
+        <span class="tl-node"></span>
+        <div class="tl-card">
+          <h4>Structure & envelope</h4>
+          <p>Six stories rise and the hall is brought weather-tight, roughly a year of vertical construction.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-date">2028 to 2029</span>
+        <span class="tl-node"></span>
+        <div class="tl-card">
+          <h4>Interior fit-out & building systems</h4>
+          <p>Mechanical, electrical, plumbing, finishes, and the 535 beds take shape inside the dry shell.</p>
+        </div>
+      </div>
+
+      <div class="tl-phase"><span>Completion & handover</span></div>
+
+      <div class="tl-item">
+        <span class="tl-date">Late 2029</span>
+        <span class="tl-node"></span>
+        <div class="tl-card">
+          <h4>Substantial then Final Completion</h4>
+          <p>The hall is ready for residents ahead of a fall term. Final Completion starts the warranty, and the educational archive transfers to FGCU.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SCORECARD -->
 <section id="scorecard">
   <div class="wrap">
@@ -331,6 +532,24 @@
       <div class="lab">illustrative target<br>points earned</div>
       <div class="track"><i></i><div class="mark" style="left:45.4%"><span>Silver 50</span></div><div class="mark" style="left:54.5%"><span>Gold 60</span></div></div>
     </div>
+
+    <div class="gold-control">
+      <button id="goldToggle" class="goldbtn" aria-pressed="false">Show the path to Gold →</button>
+      <span class="gold-hint">See which credits would lift the hall from Silver into the Gold band.</span>
+    </div>
+    <div id="goldPanel">
+      <div class="gold-inner">
+        <h4>Six more points moves Silver to Gold.</h4>
+        <p>The same building, four credits pushed harder: deeper water savings, more energy and resilience measures, lower-impact materials, and cleaner indoor air. That carries the hall from 54 to 60, across the Gold line.</p>
+        <div class="deltas">
+          <span class="delta">WE <b>+2</b></span>
+          <span class="delta">EA <b>+2</b></span>
+          <span class="delta">MR <b>+1</b></span>
+          <span class="delta">EQ <b>+1</b></span>
+          <span class="delta">total <b>54 → 60</b></span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -340,7 +559,7 @@
     <div class="sec-head">
       <span class="eyebrow">Open to every college</span>
       <h2>Every college on campus has a way in.</h2>
-      <p>These follow FGCU's actual colleges and schools, not a short list of favorites. A building this complex holds a question for engineering and business, but also for education, health, and the arts. The tags are starting points, any program can claim its own.</p>
+      <p>These follow FGCU's actual colleges and schools, not a short list of favorites. A building this complex holds a question for engineering and business, but also for education, health, and the arts. Tap any college to open its way in.</p>
     </div>
     <div class="disc-grid" id="discGrid"></div>
     <p class="disc-foot">Seven colleges shown. The platform is built to add more angles as faculty bring them, and to add the next campus project beside this one.</p>
@@ -382,7 +601,7 @@
 <footer>
   <div class="wrap">
     <div class="disc-note">
-      <b>SoVi Living Lab — demonstration prototype.</b><br>
+      <b>SoVi Living Lab: demonstration prototype.</b><br>
       An example of the kind of teaching platform that could be built around SoVi Building 6 and handed to FGCU. Not an official FGCU site. LEED point figures shown are illustrative and do not represent final project values.
     </div>
     <div>
@@ -403,11 +622,11 @@
     <div class="dpts" id="dPts"></div>
   </div>
   <div class="dbody">
-    <div class="dlabel">The question</div>
+    <div class="dlabel" id="dLabel1">The question</div>
     <p class="dtext" id="dHook"></p>
-    <div class="dlabel">A sample lesson</div>
-    <p class="dtext" id="dLesson"></p>
-    <div class="dlabel">Programs that plug in</div>
+    <div class="dlabel" id="dLabel2">A sample lesson</div>
+    <div class="dtext" id="dLesson"></div>
+    <div class="dlabel" id="dLabel3">Programs that plug in</div>
     <div class="dtags" id="dTags"></div>
   </div>
 </aside>
@@ -415,7 +634,7 @@
 <script>
 const credits = [
   { code:"IP", name:"Integrative Process", earned:1, max:1,
-    tags:["Construction Management","Design","Entrepreneurship"],
+    tags:["Construction Management","Digital Media Design","Entrepreneurship"],
     hook:"Why do green buildings work best when every trade is in the room from day one?",
     lesson:"Students trace how an early decision, say, orienting the hall to cut cooling load, ripples through structural, mechanical, and budget choices. It is a live case study in integrated project delivery, the same mindset the design-build method runs on." },
   { code:"LT", name:"Location & Transportation", earned:7, max:16,
@@ -423,7 +642,7 @@ const credits = [
     hook:"What does it cost the planet to get 535 students to and from this building?",
     lesson:"Students map walkability, transit access, and bike infrastructure around the hall, then model how site location changes a building's lifetime carbon before a single wall goes up." },
   { code:"SS", name:"Sustainable Sites", earned:6, max:10,
-    tags:["Environmental Studies","Civil Engineering"],
+    tags:["Environmental Studies","Civil Engineering","Environmental Geology"],
     hook:"How does a building sit on land that is half preserved Florida wetland?",
     lesson:"Using FGCU's own restored-nature campus as context, students study heat-island reduction, open space, and how construction disturbance is kept off sensitive ground." },
   { code:"WE", name:"Water Efficiency", earned:8, max:11,
@@ -431,23 +650,23 @@ const credits = [
     hook:"How low can a 535-bed hall push its water use, and where does the rain end up?",
     lesson:"Students compare fixture flow rates against baseline models, then follow stormwater from roof to retention and onto the campus watershed The Water School already studies. The building becomes a metered field site." },
   { code:"EA", name:"Energy & Atmosphere", earned:11, max:33,
-    tags:["Environmental Engineering","Business & Entrepreneurship","Construction Management"],
+    tags:["Environmental Engineering","Construction Management","Finance"],
     hook:"Which energy upgrades pay for themselves, and which are worth doing anyway?",
     lesson:"The biggest category becomes a two-sided problem: engineering students model envelope and HVAC performance, while business students run the life-cycle cost and payback on each measure, including the 72-hour resilience target." },
   { code:"MR", name:"Materials & Resources", earned:5, max:13,
-    tags:["Construction Management","Civil Engineering"],
+    tags:["Construction Management","Civil Engineering","Supply Chain Management"],
     hook:"What is this building actually made of, and where did it come from?",
     lesson:"Students read real material submittals, trace embodied carbon and sourcing, and weigh construction-waste diversion against cost. Materials science meets the realities of a job-site." },
   { code:"EQ", name:"Indoor Environmental Quality", earned:8, max:16,
-    tags:["Health Sciences","Environmental Engineering","Architecture"],
+    tags:["Health Science","Public Health","Environmental Engineering"],
     hook:"What makes the air, light, and acoustics inside a dorm good to live and study in?",
     lesson:"Students investigate ventilation rates, daylighting, low-emission materials, and acoustic design, connecting building decisions to student health and academic performance." },
   { code:"IN", name:"Innovation", earned:4, max:6,
-    tags:["Business & Entrepreneurship","Design"],
+    tags:["Entrepreneurship","Software Engineering","Digital Media Design"],
     hook:"What could this building do that no checklist asked for?",
     lesson:"An open brief: students propose a credit-worthy innovation, from a novel sensor program to a behavior-change campaign for residents, and pitch it as a venture with costs and impact." },
   { code:"RP", name:"Regional Priority", earned:4, max:4,
-    tags:["Environmental Studies"],
+    tags:["Environmental Studies","Marine Science","Civil Engineering"],
     hook:"What matters most for a green building specifically in Southwest Florida?",
     lesson:"Students examine why LEED weights certain credits by region, studying hurricane resilience, heat, and water issues that are particular to this coast rather than generic to the country." }
 ];
@@ -455,26 +674,42 @@ const credits = [
 const colleges = [
   { name:"U.A. Whitaker College of Engineering", color:"#009366", codes:["SS","EA","WE","MR"],
     majors:"Civil · Environmental · Construction Mgmt · Bioengineering · Software · Computer Science",
-    text:"The hall is a structural, energy, and water problem to model against real field conditions, not a textbook." },
+    text:"The hall is a structural, energy, and water problem to model against real field conditions, not a textbook.",
+    wayin:"This is the college that builds. Construction Management students already train on an open-air worksite lab and a virtual-construction lab on campus, so the hall gives them an actual project to plan, sequence, and cost. Civil and Environmental students model its energy, water, and material systems against real field data.",
+    projects:["Build a 4D construction sequence for the hall in the virtual-construction lab and check it against the real build log.","Model the envelope and HVAC, then propose the package that hits the LEED energy target.","Audit material submittals for embodied carbon and waste diversion."] },
   { name:"The Water School", color:"#1F8FB0", codes:["WE","SS","RP"],
     majors:"Environmental Studies · Marine Science · Environmental Geology",
-    text:"The building and its stormwater become a metered field site, feeding the watershed the school already studies." },
+    text:"The building and its stormwater become a metered field site, feeding the watershed the school already studies.",
+    wayin:"The Water School already treats the campus as a field site for studying the whole watershed, from rainfall down to the Gulf. The hall plugs straight into that model as a new, metered source feeding the same waters students track toward Estero Bay and the Caloosahatchee.",
+    projects:["Meter the hall’s stormwater and trace it through campus retention toward the bay.","Compare the hall’s potable water use to baseline and study runoff nutrient load on seagrass.","Map the footprint against preserved wetland and assess the site-disturbance choices."] },
   { name:"Lutgert College of Business", color:"#004685", codes:["EA","MR","IN"],
     majors:"Finance · Management · Supply Chain · Analytics · Economics",
-    text:"Life-cycle cost, procurement, payback, and the financial case for building green as a real spreadsheet." },
+    text:"Life-cycle cost, procurement, payback, and the financial case for building green as a real spreadsheet.",
+    wayin:"A building near 130 million dollars is a live finance and supply-chain case. Through the Lucas Institute for real estate development and the Center for Supply Chain Excellence, students can run the development math, the procurement chain, and the payback on every green upgrade.",
+    projects:["Build the life-cycle cost and payback model for the energy package.","Map the material supply chain and weigh local sourcing against cost and embodied carbon.","Write the financial case for building to LEED rather than to code."] },
   { name:"Daveler & Kauanui School of Entrepreneurship", color:"#B58BD1", codes:["IN"],
     majors:"Entrepreneurship · Digital Media Design",
-    text:"Pitch a credit-worthy innovation as a venture, and tell the building's story to the public." },
+    text:"Pitch a credit-worthy innovation as a venture, and tell the building’s story to the public.",
+    wayin:"Students here prototype in a makerspace and pitch through the Runway incubator. The hall’s open Innovation credit is a standing brief: invent something the checklist never asked for, build it, and pitch it as a venture.",
+    projects:["Prototype a resident energy or water behavior idea in the makerspace and pitch it through Runway.","Design the hall’s public-facing story and brand as a digital media project.","Propose a credit-worthy innovation and model its cost and impact as a startup."] },
   { name:"Marieb College of Health & Human Services", color:"#E0857A", codes:["EQ"],
     majors:"Public Health · Health Science · Social Work · Exercise Science",
-    text:"How indoor air, daylight, acoustics, and density shape the wellbeing of 535 residents." },
+    text:"How indoor air, daylight, acoustics, and density shape the wellbeing of 535 residents.",
+    wayin:"Public Health here already studies environmental health and how the built environment shapes wellbeing. The hall is a controlled case in how air, light, acoustics, and density affect 535 students who live and study inside it.",
+    projects:["Study ventilation, daylight, and acoustics in the hall and link them to resident health and sleep.","Survey residents on wellbeing and density, then tie findings back to design choices.","Assess the indoor environment against the LEED health credits and recommend fixes."] },
   { name:"College of Arts & Sciences", color:"#CC7A22", codes:["EQ","IN","RP"],
     majors:"Communication · Journalism · Biology · Chemistry · Physics · Psychology · Art",
-    text:"Document the build, study the chemistry and physics underneath it, and read how residents actually behave." },
+    text:"Document the build, study the chemistry and physics underneath it, and read how residents actually behave.",
+    wayin:"This college reads the building from every side: the chemistry and physics of its materials and energy, the psychology of how residents behave, and the journalism that documents the build. Its Climate Change and Community Resilience programs, plus WGCU Public Media, give it a regional lens.",
+    projects:["Document the build as a long-form journalism or WGCU media project.","Test the chemistry and physics behind the building’s material and energy claims.","Study resident behavior through a psychology lens, from occupancy to energy habits."] },
   { name:"College of Education", color:"#5FA86B", codes:["IP"],
     majors:"Elementary · Secondary · Special Education",
-    text:"Turn the finished building into K-12 outreach lessons and study how people learn from a real place." }
+    text:"Turn the finished building into K-12 outreach lessons and study how people learn from a real place.",
+    wayin:"Through the Whitaker Center for STEM Education, a joint effort with Arts & Sciences, FGCU already turns real research into K-12 lessons. The finished hall becomes a field site future teachers use to build inquiry-based STEM units, and a case study in how people learn from a real place.",
+    projects:["Turn the hall’s sustainability story into a K-12 STEM unit through the Whitaker Center.","Design an inquiry lesson where pupils measure the building and draw conclusions.","Study the integrated design process itself as a model of collaborative learning."] }
 ];
+
+const leedNames={IP:"Integrative Process",LT:"Location & Transportation",SS:"Sustainable Sites",WE:"Water Efficiency",EA:"Energy & Atmosphere",MR:"Materials & Resources",EQ:"Indoor Environmental Quality",IN:"Innovation",RP:"Regional Priority"};
 
 // build grid
 const grid = document.getElementById("grid");
@@ -482,6 +717,7 @@ credits.forEach((c,i)=>{
   const pct = Math.round((c.earned/c.max)*100);
   const el = document.createElement("button");
   el.className="credit";
+  el.dataset.code=c.code;
   el.setAttribute("aria-haspopup","dialog");
   el.innerHTML = `
     <div class="ct">
@@ -498,16 +734,87 @@ credits.forEach((c,i)=>{
 
 // build colleges
 const discGrid = document.getElementById("discGrid");
-colleges.forEach(p=>{
-  const el = document.createElement("div");
+colleges.forEach((p,i)=>{
+  const el = document.createElement("button");
   el.className="prog";
+  el.dataset.idx=i;
+  el.setAttribute("aria-haspopup","dialog");
   el.innerHTML = `
     <div class="pn"><span class="dot" style="background:${p.color}"></span>${p.name}</div>
     <div class="maj">${p.majors}</div>
     <div class="pcodes">${p.codes.map(c=>`<span class="pcode">${c}</span>`).join("")}</div>
-    <p>${p.text}</p>`;
+    <p>${p.text}</p>
+    <span class="pmore">a way in →</span>`;
+  el.addEventListener("click",()=>openCollege(i));
   discGrid.appendChild(el);
 });
+
+// dashboard: leed donut + college matrix
+(function(){
+  const palette=["#004685","#0a5e92","#1f8fb0","#0f8f8a","#009366","#3a9d57","#74a64a","#b5852f","#cc7a22"];
+  const R=66, SW=22, CX=90, CY=90, total=110, C=2*Math.PI*R;
+  let off=0, svg=`<circle r="${R}" cx="${CX}" cy="${CY}" fill="none" stroke="#E2E7DD" stroke-width="${SW}"/>`;
+  credits.forEach((c,i)=>{
+    const len=(c.earned/total)*C;
+    svg+=`<circle r="${R}" cx="${CX}" cy="${CY}" fill="none" stroke="${palette[i]}" stroke-width="${SW}" stroke-dasharray="${len.toFixed(2)} ${(C-len).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}" transform="rotate(-90 ${CX} ${CY})"><title>${c.code} ${c.name}: ${c.earned} pts</title></circle>`;
+    off+=len;
+  });
+  svg+=`<g class="donut-center" text-anchor="middle"><text class="dc-num" x="${CX}" y="${CY-1}">54</text><text class="dc-sub" x="${CX}" y="${CY+15}">/ 110 · Silver</text></g>`;
+  document.getElementById("leedDonut").innerHTML=svg;
+  document.getElementById("donutLegend").innerHTML=credits.map((c,i)=>
+    `<div class="leg"><span class="sw" style="background:${palette[i]}"></span><span class="lc">${c.code}</span><span class="ln">${c.name}</span><span class="lp">${c.earned}</span></div>`).join("");
+
+  const shorts=["Engineering","Water School","Business","Entrepreneurship","Health","Arts & Sciences","Education"];
+  const codes=credits.map(c=>c.code);
+  let head=`<thead><tr><th></th>${codes.map(c=>`<th scope="col">${c}</th>`).join("")}<th scope="col">·</th></tr></thead>`;
+  let body="<tbody>";
+  colleges.forEach((p,i)=>{
+    let rt=0;
+    const cells=codes.map(code=>{
+      const on=p.codes.includes(code); if(on) rt++;
+      return `<td>${on?`<span class="on" title="${shorts[i]} · ${leedNames[code]}"></span>`:`<span class="off"></span>`}</td>`;
+    }).join("");
+    body+=`<tr><th scope="row">${shorts[i]}</th>${cells}<td class="rt">${rt}</td></tr>`;
+  });
+  body+="</tbody>";
+  const colTotals=codes.map(code=>colleges.filter(p=>p.codes.includes(code)).length);
+  let foot=`<tfoot><tr><th>colleges</th>${colTotals.map(n=>`<td>${n}</td>`).join("")}<td></td></tr></tfoot>`;
+  document.getElementById("leedMatrix").innerHTML=head+body+foot;
+})();
+
+// path to gold
+const goldPath={WE:2,EA:2,MR:1,EQ:1};
+let goldOn=false;
+const goldToggle=document.getElementById("goldToggle");
+const goldPanel=document.getElementById("goldPanel");
+const totalNum=document.querySelector(".total-strip .num");
+const totalFill=document.querySelector(".total-strip .track i");
+function setGold(on){
+  goldOn=on;
+  document.querySelectorAll(".credit").forEach(card=>{
+    const code=card.dataset.code;
+    const has=card.querySelector(".goldbadge");
+    if(on && goldPath[code]){
+      card.classList.add("gold");
+      if(!has){
+        const b=document.createElement("span");
+        b.className="goldbadge";
+        b.textContent="+"+goldPath[code]+" → Gold";
+        card.appendChild(b);
+      }
+    }else{
+      card.classList.remove("gold");
+      if(has) has.remove();
+    }
+  });
+  totalNum.textContent=on?"60":"54";
+  totalFill.style.width=on?"55%":"49%";
+  totalFill.style.background=on?"linear-gradient(90deg,var(--canopy),var(--solar))":"";
+  goldPanel.classList.toggle("open",on);
+  goldToggle.setAttribute("aria-pressed",on?"true":"false");
+  goldToggle.textContent=on?"Back to the Silver target":"Show the path to Gold →";
+}
+goldToggle.addEventListener("click",()=>setGold(!goldOn));
 
 // drawer
 const scrim=document.getElementById("scrim");
@@ -519,8 +826,11 @@ function openDrawer(i){
   document.getElementById("dCode").textContent = c.code + " · LEED category";
   document.getElementById("drawerTitle").textContent = c.name;
   document.getElementById("dPts").textContent = `${c.earned} of ${c.max} points · illustrative target`;
+  document.getElementById("dLabel1").textContent = "The question";
   document.getElementById("dHook").textContent = c.hook;
+  document.getElementById("dLabel2").textContent = "A sample lesson";
   document.getElementById("dLesson").textContent = c.lesson;
+  document.getElementById("dLabel3").textContent = "Programs that plug in";
   document.getElementById("dTags").innerHTML = c.tags.map(t=>`<span class="dtag">${t}</span>`).join("");
   scrim.classList.add("open");
   drawer.classList.add("open");
@@ -532,6 +842,23 @@ function closeDrawer(){
   drawer.classList.remove("open");
   drawer.setAttribute("aria-hidden","true");
   if(lastFocus) lastFocus.focus();
+}
+function openCollege(i){
+  const p=colleges[i];
+  lastFocus=document.activeElement;
+  document.getElementById("dCode").textContent = "College · a way in";
+  document.getElementById("drawerTitle").textContent = p.name;
+  document.getElementById("dPts").textContent = p.majors;
+  document.getElementById("dLabel1").textContent = "The way in";
+  document.getElementById("dHook").textContent = p.wayin;
+  document.getElementById("dLabel2").textContent = "Starter projects";
+  document.getElementById("dLesson").innerHTML = `<ul class="dlist">${p.projects.map(t=>`<li>${t}</li>`).join("")}</ul>`;
+  document.getElementById("dLabel3").textContent = "LEED categories it connects to";
+  document.getElementById("dTags").innerHTML = p.codes.map(c=>`<span class="dtag">${c} · ${leedNames[c]}</span>`).join("");
+  scrim.classList.add("open");
+  drawer.classList.add("open");
+  drawer.setAttribute("aria-hidden","false");
+  document.getElementById("dclose").focus();
 }
 document.getElementById("dclose").addEventListener("click",closeDrawer);
 scrim.addEventListener("click",closeDrawer);
