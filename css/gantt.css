@@ -1,0 +1,139 @@
+/* ============================================================
+   SoVi Living Lab — Gantt / schedule view
+   Reuses tokens from styles.css (--paper, --water, --solar,
+   --line, --card, fonts). One local accent: --crit (soft red).
+   Contained to the page column, professional toolbar with zoom.
+   ============================================================ */
+
+#schedule{--crit:#C2584F;padding-bottom:54px}
+
+/* ---- toolbar ---- */
+.gantt-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+
+.sortset{display:inline-flex;align-items:stretch;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+.sortset .slabel{display:flex;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding:0 11px 0 14px;border-right:1px solid var(--line)}
+.sortbtn{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;border:none;background:transparent;color:var(--ink-soft);padding:8px 14px;cursor:pointer;transition:background .18s ease,color .18s ease;min-width:34px}
+.sortbtn:not(:last-child){border-right:1px solid var(--line)}
+.sortbtn:hover:not(:disabled){background:var(--paper)}
+.sortbtn.active{background:var(--water);color:#fff}
+.sortbtn:disabled{opacity:.38;cursor:default}
+.sortbtn:focus-visible{outline:3px solid var(--water);outline-offset:2px}
+
+.gantt-legend{display:flex;align-items:center;gap:15px;font-family:var(--mono);font-size:11px;color:var(--ink-soft);flex-wrap:wrap}
+.gantt-legend span{display:inline-flex;align-items:center;gap:7px}
+.gantt-legend .lg2-bar{width:16px;height:10px;background:var(--water);border-radius:3px}
+.gantt-legend .lg2-crit{width:16px;height:10px;background:var(--water);border-radius:3px;box-shadow:0 0 0 1.6px var(--crit)}
+.gantt-legend .lg2-ms{width:11px;height:11px;background:var(--solar);transform:rotate(45deg);border-radius:2px}
+.gantt-legend .lg2-dd{width:16px;height:0;border-top:2px dashed var(--solar)}
+
+.gantt-foot{font-family:var(--mono);font-size:11px;color:var(--ink-soft);line-height:1.55;margin-top:14px;max-width:74ch}
+
+/* ---- chart card (contained, aligned with the page column) ---- */
+.gchart{
+  --label-w:480px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:auto;
+  position:relative;
+}
+.ginner{position:relative;min-width:max-content}
+
+/* ---- header (years + quarters/months) ---- */
+.ghead{position:sticky;top:0;z-index:5;display:flex;background:var(--card);border-bottom:1px solid var(--line);border-radius:16px 16px 0 0}
+.gcorner{
+  position:sticky;left:0;z-index:6;width:var(--label-w);flex:none;height:48px;
+  background:var(--card);border-right:1px solid var(--line);border-radius:16px 0 0 0;
+  display:grid;grid-template-columns:1fr 46px 78px 78px;align-items:end;gap:9px;padding:0 18px 9px;
+}
+.gcorner span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.gcorner .c-num,.gcorner .c-start,.gcorner .c-finish{text-align:right}
+.gtime{position:relative;height:48px;flex:none}
+.gyear{position:absolute;top:0;height:22px;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--water);padding-left:7px;border-right:1px solid var(--line);display:flex;align-items:center}
+.gtick{position:absolute;top:22px;height:26px;font-family:var(--mono);font-size:10px;color:var(--ink-soft);padding-left:6px;border-right:1px solid var(--paper-2);display:flex;align-items:center;overflow:hidden;white-space:nowrap}
+
+/* ---- gridlines ---- */
+.ggrid{position:absolute;left:0;right:0;top:48px;bottom:0;z-index:0;pointer-events:none}
+.gv{position:absolute;top:0;bottom:0;width:1px;background:var(--paper-2)}
+.gv.yr{background:var(--line)}
+.gdd{position:absolute;top:0;bottom:0;border-left:2px dashed var(--solar);opacity:.85}
+
+/* ---- rows ---- */
+.grows{position:relative;z-index:1}
+.grow{display:flex;position:relative}
+.glbl{
+  position:sticky;left:0;z-index:3;width:var(--label-w);flex:none;
+  background:var(--card);border-right:1px solid var(--line);border-bottom:1px solid var(--paper-2);
+  display:grid;grid-template-columns:1fr 46px 78px 78px;align-items:center;gap:9px;
+  padding:10px 18px;min-height:44px;
+}
+.gtrk{position:relative;flex:none;border-bottom:1px solid var(--paper-2)}
+
+/* group band */
+.grow.gband .glbl{background:var(--paper-2);border-bottom:1px solid var(--line)}
+.grow.gband .t-dur,.grow.gband .t-start,.grow.gband .t-finish{color:var(--ink);font-weight:600}
+.grow.gband .gtrk{background:var(--paper-2);border-bottom:1px solid var(--line)}
+.g-name{font-family:var(--display);font-weight:700;font-size:14.5px;color:var(--water);letter-spacing:-.01em}
+.g-range{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:10px;color:var(--ink-soft);white-space:nowrap}
+.gbar2{position:absolute;height:7px;top:50%;margin-top:-3.5px;border-radius:3px;background:var(--water);opacity:.42}
+
+/* task row (clickable) */
+.grow.gtask{cursor:pointer}
+.grow.gtask:hover .glbl{background:var(--paper)}
+.grow.gtask:hover .gtrk{background:rgba(226,231,221,.45)}
+.t-name{font-family:var(--body);font-size:14px;color:var(--ink);line-height:1.28}
+.t-dur,.t-start,.t-finish{font-family:var(--mono);font-size:11px;color:var(--ink-soft);text-align:right;white-space:nowrap}
+.t-meta{display:none;font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);margin-top:3px;line-height:1.4}
+
+/* one colour for every bar; critical keeps a soft red ring */
+.bar2{position:absolute;height:16px;top:50%;margin-top:-8px;border-radius:4px;min-width:3px;background:var(--water);box-shadow:inset 0 -1px 0 rgba(0,0,0,.13)}
+.bar2.crit{box-shadow:inset 0 -1px 0 rgba(0,0,0,.13),0 0 0 1.5px var(--crit)}
+.ms2{position:absolute;width:13px;height:13px;top:50%;margin-top:-6.5px;margin-left:-6.5px;background:var(--solar);transform:rotate(45deg);border-radius:2px;box-shadow:0 1px 4px -1px rgba(204,122,34,.5)}
+.ms2.key{width:16px;height:16px;margin-top:-8px;margin-left:-8px}
+.ms2.crit{box-shadow:0 0 0 2px var(--crit),0 2px 6px -2px rgba(0,0,0,.3)}
+
+/* ---- detail panel (right drawer on desktop, bottom sheet on phone) ---- */
+.gd-scrim{position:fixed;inset:0;background:rgba(21,36,27,.42);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:80}
+.gd-scrim.open{opacity:1;pointer-events:auto}
+.gd-panel{
+  position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);z-index:90;
+  background:var(--paper);border-left:1px solid var(--line);
+  transform:translateX(100%);transition:transform .34s cubic-bezier(.3,.7,.2,1);
+  padding:30px 28px;overflow-y:auto;box-shadow:-30px 0 60px -30px rgba(21,36,27,.5);
+}
+.gd-panel.open{transform:translateX(0)}
+.gd-close{position:absolute;top:18px;right:20px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:18px;color:var(--ink);line-height:1;display:flex;align-items:center;justify-content:center}
+.gd-close:hover{background:var(--paper-2)}
+.gd-close:focus-visible{outline:3px solid var(--water);outline-offset:2px}
+.gd-eyebrow{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--canopy)}
+.gd-title{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.02em;line-height:1.08;margin:9px 0 0;color:var(--ink);max-width:90%}
+.gd-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;margin-top:24px}
+.gd-grid .gd-cell span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px}
+.gd-grid .gd-cell b{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01em;color:var(--water)}
+.gd-status{margin-top:22px}
+.gd-chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.03em;border-radius:999px;padding:7px 13px;border:1px solid var(--line);color:var(--ink-soft);background:var(--card)}
+.gd-chip.is-crit{border-color:var(--crit);color:var(--crit)}
+.gd-chip .dotc{width:9px;height:9px;border-radius:50%;background:currentColor;flex:none}
+.gd-note{font-family:var(--body);font-size:14.5px;color:var(--ink-soft);line-height:1.55;margin-top:18px}
+
+/* ---- tablet: drop the date columns, show an inline meta line ---- */
+@media (max-width:1024px){
+  .gcorner{grid-template-columns:1fr}
+  .gcorner .c-num,.gcorner .c-start,.gcorner .c-finish{display:none}
+  .glbl{grid-template-columns:1fr;align-items:start}
+  .t-dur,.t-start,.t-finish{display:none}
+  .t-meta{display:block}
+}
+
+/* ---- phone ---- */
+@media (max-width:760px){
+  .glbl{padding:9px 14px;min-height:0}
+  .gcorner{padding:0 14px 9px}
+  .g-range{font-size:9px}
+  .gantt-meta{gap:9px}
+  .gd-panel{top:auto;left:0;right:0;bottom:0;width:auto;border-left:none;border-top:1px solid var(--line);border-radius:20px 20px 0 0;transform:translateY(100%);max-height:82vh;padding:26px 22px 30px}
+  .gd-panel.open{transform:translateY(0)}
+}
+@media (max-width:430px){
+  .g-range{display:none}
+}
